@@ -99,9 +99,33 @@ fi
 
 # Display disk usage
 echo "------Disk------"
-df -h |grep --color=never '^Filesystem\|^/dev'
+# We need some red color when disk space is higher than 95%. This is going to be a little tricky.
+# We want to set the internal field separator to what it was before after we're done with it.
+dedcheck_oldIFS=$IFS
+IFS=$'\n'
+# Disk space
+dedcheck_dfhead=$(df -h |grep --color=never ^Filesystem)
+dedcheck_devdisks=$(df -h |grep --color=never ^/dev)
+echo $dedcheck_dfhead
+for i in $dedcheck_devdisks
+do if [ $(echo $i |awk '{print $5}' | tr -d '%') -gt '90' ]
+then color=${RED}
+else color=${NC}
+fi
+echo -e "${color}$i${NC}"
+done
 echo -ne "\n"
-df -ih |grep --color=never '^Filesystem\|^/dev'
+# Inodes
+dedcheck_idfhead=$(df -ih |grep --color=never ^Filesystem)
+dedcheck_idevdisks=$(df -ih |grep --color=never ^/dev)
+echo $dedcheck_idfhead
+for i in $dedcheck_idevdisks
+do if [ $(echo $i |awk '{print $5}' | tr -d '%') -gt '90' ]
+then color=${RED}
+else color=${NC}
+fi
+echo -e "${color}$i${NC}"
+done
 echo -ne "\n"
 
 # Service check
