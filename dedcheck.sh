@@ -53,22 +53,13 @@ echo -ne "\n"
 
 # CPU load and count
 echo "------Load------"
-# It is rare, but nproc doesn't exist on some servers, so this is going to have to be conditional.
-# If the nproc command does not exist, return "N/A" for nproc and do not color it if the load is high.
-if hash nprocc 2>/dev/null
-then dedcheck_nproc=$(nproc)
-else dedcheck_nproc="N/A"
-fi
-if [ ! $dedcheck_nproc = "N/A" ]
-then dedcheck_load=$(uptime | grep -ohe 'load average[s:][: ].*' | awk '{ print $3 }' |sed 's|[,]||g')
+# Make red if load is greater than nproc
+dedcheck_load=$(uptime | grep -ohe 'load average[s:][: ].*' | awk '{ print $3 }' |sed 's|[,]||g')
 # Make the load an integer
 dedcheck_load=$( printf "%.0f" $dedcheck_load )
 color=${NC}
 if [ $dedcheck_load -gt $(nproc) ]
 then color=${RED}
-fi
-else
-color=${NC}
 fi
 echo -e "${color}Load: $(uptime | awk -F'[a-z]:' '{ print $2}')${NC}"
 color=${NC}
