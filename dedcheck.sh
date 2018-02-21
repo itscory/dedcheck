@@ -99,7 +99,7 @@ df -ih |grep --color=never '^Filesystem\|^/dev'
 echo -ne "\n"
 
 # Service check
-for service in httpd exim cpanel mysql named
+for service in httpd exim cpanel mysql named dovecot
 do if ! (( $(ps -ef | grep -v grep | grep -c $service) > 0 ))
 then echo -e "${RED} ! ! ! $service is DOWN ! ! ! ${NC}"
 fi
