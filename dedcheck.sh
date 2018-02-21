@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Made by Corey Stewart
-# Version 1.1.1
+# Version 1.2
 
 # Lets define some colors!
 RED='\033[0;31m'
