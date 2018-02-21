@@ -21,7 +21,7 @@ fi
 echo -e "cPanel License: $dedcheck_cpanellicensestatus"
 
 # Number of IPs in use.
-echo "IPs:" $(ipusage |wc -l)
+echo "IPs:" $(/usr/local/cpanel/scripts/ipusage |wc -l)
 
 # Number of cPanel accounts
 echo "cPanel Accounts: $(cat /etc/trueuserdomains |wc -l)"
