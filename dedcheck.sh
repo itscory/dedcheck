@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Made by Corey St.
+# Made by Corey Stewart
 # Version 1.1.1
 
 # Lets define some colors!
