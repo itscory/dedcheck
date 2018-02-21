@@ -91,8 +91,10 @@ isspamming=1
 else color=${NC}
 fi
 echo -e "${color}Queue: $(exim -bpc)${NC}"
+echo -ne "\n"
+# Display top dovecot senders if server is spamming.
 if [ "$isspamming" == "1" ]
-then echo "Top dovecot authenticated emails:"
+then echo "------Top dovecot authenticated emails------"
 grep "A=dovecot_login" /var/log/exim_mainlog | awk -F"A=dovecot_login:" {'print $2'} | cut -f1 -d' ' | sort | uniq -c | sort -n | awk {'print $1, " unique emails sent by " , $2'}
 echo -ne "\n"
 fi
