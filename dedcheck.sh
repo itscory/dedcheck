@@ -8,10 +8,6 @@ GREEN='\033[92m'
 NC='\033[0m' # No Color
 color=${NC} # We'll use this later, trust me.
 
-# Set paths
-# Allows you to run scripts from /scripts/, /opt/dedrads, etc without typing the full path.
-PATH="$PATH:/opt/dedrads:/usr/local/cpanel/scripts:/usr/local/cpanel/bin:/opt/tier1adv/bin:/opt/sharedrads:/scripts"
-
 # Server details
 echo -ne "\n"
 echo "Hostname: $(hostname)"
