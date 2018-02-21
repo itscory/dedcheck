@@ -114,7 +114,6 @@ else color=${NC}
 fi
 echo -e "${color}$i${NC}"
 done
-IFS=$dedcheck_oldIFS
 echo -ne "\n"
 # Inodes
 dedcheck_idfhead=$(df -ih |grep --color=never ^Filesystem)
@@ -127,6 +126,7 @@ else color=${NC}
 fi
 echo -e "${color}$i${NC}"
 done
+IFS=$dedcheck_oldIFS
 echo -ne "\n"
 
 # Service check
