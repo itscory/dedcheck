@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # Made by Corey Stewart
 # Version 1.2
+# Purpose: To display VPS/dedicated server information and identify common server issues.
 
 # Lets define some colors!
 RED='\033[0;41m'
