@@ -6,7 +6,7 @@
 RED='\033[0;31m'
 GREEN='\033[92m'
 NC='\033[0m' # No Color
-color=${NC} # We'll use this later, trust me.
+color=${NC}
 
 # Server details
 echo -ne "\n"
