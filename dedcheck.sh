@@ -3,8 +3,7 @@
 # Version 1.2
 
 # Lets define some colors!
-RED='\033[0;31m'
-GREEN='\033[92m'
+RED='\033[0;41m'
 NC='\033[0m' # No Color
 color=${NC}
 
