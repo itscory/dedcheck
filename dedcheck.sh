@@ -140,7 +140,7 @@ done
 
 # Custom services
 # Slack me if you can think of any other concerning services to add.
-for service in nginx varnish redis memcache tomcat java node
+for service in nginx varnish redis memcache tomcat java
 do if (( $(ps -ef | grep -v grep | grep -c $service) > 0 ))
 then echo -e "${RED} ! ! ! $service is RUNNING ! ! ! ${NC}"
 fi
