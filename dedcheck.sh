@@ -5,6 +5,7 @@
 
 # Lets define some colors!
 RED='\033[0;41m'
+YELLOW='\033[0;33m'
 CYAN='\033[0;46m'
 NC='\033[0m' # No Color
 color=${NC}
@@ -14,28 +15,8 @@ echo -ne "\n"
 echo "Hostname: $(hostname)"
 echo "Main IP: $(hostname -i)"
 
-# Check cPanel license
-if [[ $(/usr/local/cpanel/cpkeyclt) = *"Update succeeded"* ]]
-then dedcheck_cpanellicensestatus=Active
-else dedcheck_cpanellicensestatus="${RED}Invalid${NC}"
-fi
-echo -e "cPanel License: $dedcheck_cpanellicensestatus"
-
 # Number of IPs in use.
 echo "IPs:" $(/usr/local/cpanel/scripts/ipusage |wc -l)
-
-# Number of cPanel accounts
-echo "cPanel Accounts: $(cat /etc/trueuserdomains |wc -l)"
-
-# EasyApache version
-# Color red if it is 3, because that's good to know.
-if [ -d /etc/cpanel/ea4 ]
-then eaversion="EasyApache 4"
-color=${NC}
-else eaversion="EasyApache 3"
-color=${RED}
-fi
-echo -e "${color}EA Version: $eaversion${NC}"
 
 # What firewall is running?
 if [ -s /etc/csf ]
@@ -46,6 +27,43 @@ else firewall=UNKNOWN
 fi
 fi
 echo "Firewall: $firewall"
+echo -ne "\n"
+
+echo "------cPanel------"
+# Check cPanel license
+if [[ $(/usr/local/cpanel/cpkeyclt) = *"Update succeeded"* ]]
+then dedcheck_cpanellicensestatus=Active
+else dedcheck_cpanellicensestatus="${RED}Invalid${NC}"
+fi
+echo -e "License: $dedcheck_cpanellicensestatus"
+
+# Number of cPanel accounts
+echo "Accounts: $(cat /etc/trueuserdomains |wc -l)"
+# Find out whether or not cPanel backups are enabled
+dedcheck_backup_enabled=$(grep "BACKUPENABLE:" /var/cpanel/backups/config | awk '{ print $2 }')
+# Remove single quotes from value
+eval dedcheck_backup_enabled=$dedcheck_backup_enabled
+if [ $dedcheck_backup_enabled = "yes" ]
+then dedcheck_backup_status="Enabled"
+color=${NC}
+else if [ $dedcheck_backup_enabled = "no" ]
+then dedcheck_backup_status="Disabled"
+color=${YELLOW}
+else dedcheck_backup_status="UNKNOWN"
+color=${NC}
+fi
+fi
+echo -e "Backups: ${color}$dedcheck_backup_status${NC}"
+
+# EasyApache version
+# Color red if it is 3, because that's good to know.
+if [ -d /etc/cpanel/ea4 ]
+then eaversion="EasyApache 4"
+color=${NC}
+else eaversion="EasyApache 3"
+color=${RED}
+fi
+echo -e "${color}EA Version: $eaversion${NC}"
 echo -ne "\n"
 
 # CPU load and count
