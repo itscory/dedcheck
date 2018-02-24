@@ -5,6 +5,7 @@
 
 # Lets define some colors!
 RED='\033[0;41m'
+CYAN='\033[0;46m'
 NC='\033[0m' # No Color
 color=${NC}
 
@@ -142,7 +143,7 @@ done
 # Slack me if you can think of any other concerning services to add.
 for service in nginx varnish redis memcache tomcat java
 do if (( $(ps -ef | grep -v grep | grep -c $service) > 0 ))
-then echo -e "${RED} ! ! ! $service is RUNNING ! ! ! ${NC}"
+then echo -e "${CYAN} ! ! ! $service is RUNNING ! ! ! ${NC}"
 fi
 done
 echo -ne "\n"
