@@ -83,7 +83,7 @@ echo -e "${color}rDNS: $(dig @ns1.inmotionhosting.com -x $mailip +short)${NC}"
 
 # Exim queue
 # This will turn red if the queue is greater than 100
-isspamming=1 #FOR TESTING! CHANGE TO 0 BEFORE RELEASE!
+isspamming=0
 queue=$(exim -bpc)
 if [ $queue -gt 100 ]
 then color=${RED}
